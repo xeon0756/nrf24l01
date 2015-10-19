@@ -11,7 +11,7 @@
 
 #define _BV(bit) (1 << (bit))
 
-class nRF24L01{
+class nRF24L01_{
 public:
 enum Registers{
 CONFIG=0x00;
