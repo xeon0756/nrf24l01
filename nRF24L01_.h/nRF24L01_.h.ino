@@ -1,12 +1,15 @@
 #ifndef __NRF24L01_H__
 #define __NRF24L01_H__
 
+ 
 #include <Arduino.h>
 #include <stdint.h>
 #include <SPI.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
+
+#define _BV(bit) (1 << (bit))
 
 class nRF24L01{
 public:
@@ -58,12 +61,14 @@ nRF24L01_(byte _cs,byte mode);
 //functions
 void spi_config();
 byte read_reg(byte reg);
+byte read_reg(byte reg,const void* buf,byte length_);
 byte write_reg(byte reg);
-void tx_payload(buf* pl,byte length_pl);
-buf* rx_payload();
+byte write_reg(byte reg,const void* buf,byte length_);
+void tx_payload(const void* buf,byte length_);
+void rx_payload();
 void reuse_tx_pl();
-void w_acl_payload(buf* pl_ac,byte length_pl_ac);
-void w_tx_pl_noack(buf* pl_noac,byte length_pl_noac);
+void w_acl_payload(const void* buf,byte length_);
+void w_tx_pl_noack(const void* buf,byte length_);
 void flush_tx();
 void flush_rx();
 void print_reg(byte reg); 
@@ -86,8 +91,6 @@ void set_ard(byte mult);
 private:
 byte cs;
 byte mode;
-
-
 
 }
 #endif
